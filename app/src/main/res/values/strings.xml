@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GoogleSheetsAPI</string>
+    <string name="title_activity_spreadsheet">SpreadsheetActivity</string>
+</resources>
