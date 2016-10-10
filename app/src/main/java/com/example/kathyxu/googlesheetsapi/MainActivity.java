@@ -43,19 +43,34 @@ public class MainActivity extends AppCompatActivity {
         rView.setLayoutManager(gridLayoutManager);
 
 
-        DownloadData downloadData = new DownloadData();
-        downloadData.execute();
-        System.out.println("executed!");
 
-
+        boolean databaseExists = databaseExists();
+        if (databaseExists==true){//if there is a database, load the display using the database
+            System.out.println("setdisplay called!");
+            setDisplay();
+        }
+        else{//if there is no database, go get the info from poke api using the getPokemon() method
+            studentToSearch=myDbAccess.getAll();
+            DownloadData downloadData = (DownloadData) new DownloadData();
+            downloadData.execute();
+            System.out.println("executed!");
+        }
 
     }
 
+    private boolean databaseExists(){
+        boolean isExists = false;
+        if(myDbAccess.getAll().size()>0){
+            isExists=true;
+        }
+        return isExists;
+    }
 
-    public class DownloadData extends AsyncTask<Void, Void, Void>{
+
+    public class DownloadData extends AsyncTask<Void, Void, Integer>{
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Integer doInBackground(Void... params) {
             Student studentToAdd = new Student();
             SpreadsheetService service = new SpreadsheetService("com.example");
             try {
@@ -83,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
 //for zID
                     String id = elements.getValue("zID");
                     String idToAdd = "";
-                    if(id.substring(0).toLowerCase().equals("z")){
+                    if(id.substring(0,1).toLowerCase().equals("z")){
+                        System.out.println(id.substring(0,1));
                         idToAdd = id.substring(1);
                     }
                     else{
@@ -102,6 +118,10 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("tutorial is: "+ tut);
                     studentToAdd.setTut(tut);
 
+                    myDbAccess.insertStudent(studentToAdd);//inserts the student into the database
+
+                    System.out.println("student "+studentToAdd.getFname() + " " + studentToAdd.getLname() + " has zID of " + studentToAdd.getId() + " and a zmail of " + studentToAdd.getZmail() + " and a tutorial at " + studentToAdd.getTut() + " was added");
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -110,10 +130,32 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
 
             }
-            myDbAccess.insertStudent(studentToAdd);//inserts the student into the database
+            //setDisplay();
 
-            return null;
+            return 1;
         }
+        @Override
+        protected void onPostExecute(Integer hi) {
+            setDisplay();
+        }
+    }
+
+    private void setDisplay(){
+        List <Student> dblist = myDbAccess.getAll();
+
+        for(Student s : dblist){
+            System.out.println("student: " + s.getFname() + " " + s.getLname());
+        }
+
+        adapter = new RecyclerViewAdapter(MainActivity.this, dblist);//here your arraylist of pokemon
+        rView.setAdapter(adapter);
+        System.out.println("SET DISPLAY WORKED!");
+
+
+    }
+
+    private void closeDb(){
+
     }
 
 }

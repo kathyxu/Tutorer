@@ -29,10 +29,11 @@ public class RecyclerViewHolders extends RecyclerView.ViewHolder implements View
     public void onClick(View v) {
         Context context = itemView.getContext();
         Toast.makeText(v.getContext(), "Clicked Country Position = " + getPosition(), Toast.LENGTH_SHORT).show();
-        //TODO write this when creating new activity: Intent showStudentIntent = new Intent(context, );
-//        String numberKey = String.valueOf(student.getId());
-//        showStudentIntent.putExtra("number", numberKey);
-//        context.startActivity(showStudentIntent);
+        //TODO write this when creating new activity:
+        Intent showStudentIntent = new Intent(context, DetailedActivity.class );
+        String numberKey = String.valueOf(student.getId());
+        showStudentIntent.putExtra("number", numberKey);
+        context.startActivity(showStudentIntent);
     }
 
 }
