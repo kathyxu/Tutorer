@@ -45,6 +45,9 @@ public class DetailedActivity extends AppCompatActivity {
         //TODO tablelayout
         TableLayout assignmentTable = (TableLayout)findViewById(R.id.assessments);
 
+        TextView hello = (TextView)findViewById(R.id.bb1);
+        hello.setText("hellloooooooothere");
+
         TextView comments = (TextView)findViewById(R.id.comments);
 
 
