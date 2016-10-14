@@ -29,7 +29,12 @@ public class StudentContract {
                     StudentEntry.COLUMN_NAME_FNAME + TEXT_TYPE + COMMA_SEP +
                     StudentEntry.COLUMN_NAME_LNAME + TEXT_TYPE + COMMA_SEP +
                     StudentEntry.COLUMN_NAME_ZMAIL + TEXT_TYPE + COMMA_SEP +
-                    StudentEntry.COLUMN_NAME_TUT + TEXT_TYPE  +
+                    StudentEntry.COLUMN_NAME_TUT + TEXT_TYPE  + COMMA_SEP +
+                    StudentEntry.COLUMN_NAME_COMMENTS + TEXT_TYPE  + COMMA_SEP +
+                    StudentEntry.COLUMN_NAME_ASSESSMENTONE + INT_TYPE  + COMMA_SEP +
+                    StudentEntry.COLUMN_NAME_ASSESSMENTTWO + INT_TYPE  + COMMA_SEP +
+                    StudentEntry.COLUMN_NAME_ASSESSMENTTHREE + INT_TYPE  + COMMA_SEP +
+                    StudentEntry.COLUMN_NAME_ASSESSMENTFOUR + INT_TYPE  +
                     " )";
 
     public static final String SQL_DELETE_ENTRIES =
@@ -41,6 +46,11 @@ public class StudentContract {
         public static final String COLUMN_NAME_LNAME = "lname";
         public static final String COLUMN_NAME_ZMAIL = "zmail";
         public static final String COLUMN_NAME_TUT = "tut";
+        public static final String COLUMN_NAME_COMMENTS = "comments";
+        public static final String COLUMN_NAME_ASSESSMENTONE = "assessmentOne";
+        public static final String COLUMN_NAME_ASSESSMENTTWO = "assessmentTwo";
+        public static final String COLUMN_NAME_ASSESSMENTTHREE = "assessmentThree";
+        public static final String COLUMN_NAME_ASSESSMENTFOUR = "assessmentFour";
     }
 
     public StudentContract(SQLiteOpenHelper dbHelper) {
@@ -56,6 +66,12 @@ public class StudentContract {
         values.put(StudentEntry.COLUMN_NAME_LNAME, student.getLname());
         values.put(StudentEntry.COLUMN_NAME_ZMAIL, student.getZmail());
         values.put(StudentEntry.COLUMN_NAME_TUT, student.getTut());
+        values.put(StudentEntry.COLUMN_NAME_COMMENTS, student.getComments());
+        values.put(StudentEntry.COLUMN_NAME_ASSESSMENTONE, student.getAssessmentOne());
+        values.put(StudentEntry.COLUMN_NAME_ASSESSMENTTWO, student.getAssessmentTwo());
+        values.put(StudentEntry.COLUMN_NAME_ASSESSMENTTHREE, student.getAssessmentThree());
+        values.put(StudentEntry.COLUMN_NAME_ASSESSMENTFOUR, student.getAssessmentFour());
+
 
         long newRowId;
         newRowId = db.insert(TABLE_NAME, null, values);
@@ -73,7 +89,13 @@ public class StudentContract {
                 StudentEntry.COLUMN_NAME_FNAME,
                 StudentEntry.COLUMN_NAME_LNAME,
                 StudentEntry.COLUMN_NAME_ZMAIL,
-                StudentEntry.COLUMN_NAME_TUT
+                StudentEntry.COLUMN_NAME_TUT,
+                StudentEntry.COLUMN_NAME_COMMENTS,
+                StudentEntry.COLUMN_NAME_ASSESSMENTONE,
+                StudentEntry.COLUMN_NAME_ASSESSMENTTWO,
+                StudentEntry.COLUMN_NAME_ASSESSMENTTHREE,
+                StudentEntry.COLUMN_NAME_ASSESSMENTFOUR
+
         };
 
         String sortOrder = StudentEntry.COLUMN_NAME_ID;
@@ -97,6 +119,12 @@ public class StudentContract {
             stu.setLname(cur.getString(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_LNAME)));
             stu.setZmail(cur.getString(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_ZMAIL)));
             stu.setTut(cur.getString(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_TUT)));
+            stu.setComments(cur.getString(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_COMMENTS)));
+            stu.setAssessmentOne(cur.getInt(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_ASSESSMENTONE)));
+            stu.setAssessmentTwo(cur.getInt(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_ASSESSMENTTWO)));
+            stu.setAssessmentThree(cur.getInt(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_ASSESSMENTTHREE)));
+            stu.setAssessmentFour(cur.getInt(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_ASSESSMENTFOUR)));
+
 
             students.add(stu);
         }
@@ -133,7 +161,13 @@ public class StudentContract {
                 StudentEntry.COLUMN_NAME_FNAME,
                 StudentEntry.COLUMN_NAME_LNAME,
                 StudentEntry.COLUMN_NAME_ZMAIL,
-                StudentEntry.COLUMN_NAME_TUT
+                StudentEntry.COLUMN_NAME_TUT,
+                StudentEntry.COLUMN_NAME_COMMENTS,
+                StudentEntry.COLUMN_NAME_ASSESSMENTONE,
+                StudentEntry.COLUMN_NAME_ASSESSMENTTWO,
+                StudentEntry.COLUMN_NAME_ASSESSMENTTHREE,
+                StudentEntry.COLUMN_NAME_ASSESSMENTFOUR
+
 
         };
 
@@ -156,7 +190,11 @@ public class StudentContract {
             stu.setZmail(cur.getString(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_ZMAIL)));
             //byte[] img = cur.getBlob(cur.getColumnIndexOrThrow(PokemonEntry.COLUMN_NAME_IMAGE));
             stu.setTut(cur.getString(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_TUT)));
-
+            stu.setComments(cur.getString(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_COMMENTS)));
+            stu.setAssessmentOne(cur.getInt(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_ASSESSMENTONE)));
+            stu.setAssessmentTwo(cur.getInt(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_ASSESSMENTTWO)));
+            stu.setAssessmentThree(cur.getInt(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_ASSESSMENTTHREE)));
+            stu.setAssessmentFour(cur.getInt(cur.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_ASSESSMENTFOUR)));
         }
         cur.close();
         db.close();

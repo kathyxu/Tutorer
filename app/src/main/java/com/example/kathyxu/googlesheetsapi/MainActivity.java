@@ -118,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("tutorial is: "+ tut);
                     studentToAdd.setTut(tut);
 
+
+                    studentToAdd.setComments("This is a comment for this student but i dont know how to fill it up");
+
                     myDbAccess.insertStudent(studentToAdd);//inserts the student into the database
 
                     System.out.println("student "+studentToAdd.getFname() + " " + studentToAdd.getLname() + " has zID of " + studentToAdd.getId() + " and a zmail of " + studentToAdd.getZmail() + " and a tutorial at " + studentToAdd.getTut() + " was added");
